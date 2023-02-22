@@ -551,14 +551,11 @@ import UIKit
     }
     
     private func updateLabelPositions() {
-        if !changeLabelPosition {
-            return
-        }
         // the center points for the labels are X = the same x position as the relevant handle. Y = the y position of the handle minus half the height of the text label, minus some padding.
 
         minLabel.frame.size = minLabelTextSize
         maxLabel.frame.size = maxLabelTextSize
-
+        
         if labelsFixed {
             updateFixedLabelPositions()
             return
@@ -580,6 +577,12 @@ import UIKit
             minLabel.position = newMinLabelCenter
             maxLabel.position = newMaxLabelCenter
 
+            if !changeLabelPosition {
+                minLabel.frame.origin.x = 0.0
+                maxLabel.frame.origin.x = frame.width - maxLabel.frame.width
+                return
+            }
+            
             if minLabel.frame.minX < 0.0 {
                 minLabel.frame.origin.x = 0.0
             }
@@ -592,6 +595,12 @@ import UIKit
             minLabel.position = CGPoint(x: newMinLabelCenter.x - increaseAmount / 2.0, y: newMinLabelCenter.y)
             maxLabel.position = CGPoint(x: newMaxLabelCenter.x + increaseAmount / 2.0, y: newMaxLabelCenter.y)
 
+            if !changeLabelPosition {
+                minLabel.frame.origin.x = 0.0
+                maxLabel.frame.origin.x = frame.width - maxLabel.frame.width
+                return
+            }
+            
             // Update x if they are still in the original position
             if minLabel.position.x == maxLabel.position.x {
                 minLabel.position.x = leftHandle.frame.midX
@@ -615,6 +624,13 @@ import UIKit
                                     y: sliderLine.frame.minY - (minLabelTextSize.height / 2.0) - (handleDiameter / 2.0) - labelPadding)
         maxLabel.position = CGPoint(x: xPositionAlongLine(for: maxValue),
                                     y: sliderLine.frame.minY - (maxLabelTextSize.height / 2.0) - (handleDiameter / 2.0) - labelPadding)
+        
+        if !changeLabelPosition {
+            minLabel.frame.origin.x = 0.0
+            maxLabel.frame.origin.x = frame.width - maxLabel.frame.width
+            return
+        }
+        
         if minLabel.frame.minX < 0.0 {
             minLabel.frame.origin.x = 0.0
         }
