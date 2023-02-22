@@ -104,6 +104,8 @@ import UIKit
     /// fixes the labels above the slider controls. true: labels will be fixed to both ends. false: labels will move with the handles. Default is false.
     @IBInspectable open var labelsFixed: Bool = false
 
+    @IBInspectable open var changeLabelPosition: Bool = true
+    
     /// The minimum distance the two selected slider values must be apart. Default is 0.
     @IBInspectable open var minDistance: CGFloat = 0.0 {
         didSet {
@@ -155,8 +157,6 @@ import UIKit
     /// The step value, this control the value of each step. If not set the default is 0.0.
     /// (note: this is ignored if <= 0.0)
     @IBInspectable open var step: CGFloat = 0.0
-
-    @IBInspectable open var changeLabelPosition: Bool = false
 
     /// Handle slider with custom image, you can set custom image for your handle
     @IBInspectable open var handleImage: UIImage? {
@@ -551,7 +551,7 @@ import UIKit
     }
     
     private func updateLabelPositions() {
-        if changeLabelPosition {
+        if !changeLabelPosition {
             return
         }
         // the center points for the labels are X = the same x position as the relevant handle. Y = the y position of the handle minus half the height of the text label, minus some padding.
