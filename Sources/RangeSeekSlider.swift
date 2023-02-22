@@ -156,6 +156,8 @@ import UIKit
     /// (note: this is ignored if <= 0.0)
     @IBInspectable open var step: CGFloat = 0.0
 
+    @IBInspectable open var changeLabelPosition: Bool = false
+
     /// Handle slider with custom image, you can set custom image for your handle
     @IBInspectable open var handleImage: UIImage? {
         didSet {
@@ -549,6 +551,9 @@ import UIKit
     }
     
     private func updateLabelPositions() {
+        if changeLabelPosition {
+            return
+        }
         // the center points for the labels are X = the same x position as the relevant handle. Y = the y position of the handle minus half the height of the text label, minus some padding.
 
         minLabel.frame.size = minLabelTextSize
